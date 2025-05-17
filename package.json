@@ -1,0 +1,29 @@
+{
+  "name": "secureserver",
+  "version": "1.0.0",
+  "description": "secure server for any ecommerce or lms like project",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "dev": "nodemon index.js",
+    "start": "node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "yes"
+  },
+  "keywords": [
+    "secure",
+    "server",
+    "lms",
+    "ecommerce"
+  ],
+  "author": "Rohit Chhabiraj Yadav",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^16.5.0",
+    "express": "^5.0.1",
+    "mongoose": "^8.15.0"
+  }
+}
