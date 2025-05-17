@@ -1,10 +1,22 @@
 import express from 'express';
 import morgan from 'morgan';
 import dotenv from "dotenv";
+import rateLimit from 'express-rate-limit';
 dotenv.config();
 
 const app=express();
 const PORT=process.env.PORT || 3000;
+
+// Global rate limiting
+const limiter = rateLimit({
+	windowMs: 15 * 60 * 1000, // 15 minutes
+	limit: 100, // Limit each IP to 100 requests per `window` (here, per 15 minutes).
+	message:"Too many request from this IP, please try letter"
+
+})
+
+// security middleware
+app.use("/api",limiter)
 
 //logger middleware
 if(process.env.NODE_ENV== "development"){
