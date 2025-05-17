@@ -5,7 +5,8 @@ import rateLimit from 'express-rate-limit';
 import helmet from 'helmet';
 import ExpressMongoSanitize from 'express-mongo-sanitize';
 import hpp from 'hpp';
-
+import cookieParser from 'cookie-parser';
+import cors from 'cors'
 dotenv.config();
 
 const app=express();
@@ -33,6 +34,7 @@ if(process.env.NODE_ENV== "development"){
 // Body Parser middleware 
 app.use(express.json({limit:'10kb'}));
 app.use(express.urlencoded({extended:true,limit:'10kb'}));
+app.use(cookieParser())
 
 
 // Global Error Handler
@@ -44,6 +46,23 @@ app.use((error,req,res,next)=>{
         ...(process.env.NODE_ENV=='development' && {stack:error.stack})
     })
 })
+
+// CORS configure
+app.use(cors({
+    origin:process.env.CLIENT_URL || "*",
+    credentials:true,
+    methods:["GET","POST","PUT","DELETE","HEAD","OPTIONS"],
+    allowedHeaders:[
+      "Content-Type",
+      "Authorization",
+      "X-Requested-With",
+      "device-remember-token",
+      "Access-Control-Allow-Origin",
+      "Origin",
+      "Accept"
+    ]
+
+}))
 
 
 //API Routes
