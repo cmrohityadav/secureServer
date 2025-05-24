@@ -81,3 +81,13 @@ const courseSchema = new mongoose.Schema({
 courseSchema.virtual('averageRating').get(function(){
     return 0;
 })
+
+courseSchema.pre('save',function(next){
+    if(this.lectures){
+        this.totalLectures=this.lectures.length;
+    }
+
+    next();
+})
+
+export const Course=mongoose.model('Course',courseSchema);
